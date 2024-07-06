@@ -139,6 +139,9 @@ def get_webdriver(proxy: dict = None) -> WebDriver:
     options.add_argument('--disable-software-rasterizer')
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--ignore-ssl-errors')
+    # required to bypass Cloudflare
+    # https://github.com/FlareSolverr/FlareSolverr/issues/1036
+    options.add_argument("--disable-popup-blocking")
     # fix GL errors in ASUSTOR NAS
     # https://github.com/FlareSolverr/FlareSolverr/issues/782
     # https://github.com/microsoft/vscode/issues/127800#issuecomment-873342069
@@ -172,8 +175,6 @@ def get_webdriver(proxy: dict = None) -> WebDriver:
             start_xvfb_display()
     # For normal headless mode:
     # options.add_argument('--headless')
-
-    options.add_argument("--auto-open-devtools-for-tabs")
 
     # if we are inside the Docker container, we avoid downloading the driver
     driver_exe_path = None
